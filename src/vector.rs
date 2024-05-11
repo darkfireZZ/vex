@@ -1,6 +1,6 @@
 use {
     crate::num_traits::{One, Scalar, Zero},
-    std::ops::{Add, AddAssign, Neg, Sub, SubAssign},
+    std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign},
 };
 
 pub mod aliases {
@@ -114,5 +114,49 @@ where
             *component = -*component;
         }
         self
+    }
+}
+
+impl<const N: usize, T> Mul<T> for Vector<N, T>
+where
+    T: Mul<Output = T> + Copy,
+{
+    type Output = Self;
+    fn mul(mut self, scalar: T) -> Self {
+        self *= scalar;
+        self
+    }
+}
+
+impl<const N: usize, T> MulAssign<T> for Vector<N, T>
+where
+    T: Mul<Output = T> + Copy,
+{
+    fn mul_assign(&mut self, scalar: T) {
+        for component in &mut self.components {
+            *component = *component * scalar;
+        }
+    }
+}
+
+impl<const N: usize, T> Div<T> for Vector<N, T>
+where
+    T: Div<Output = T> + Copy,
+{
+    type Output = Self;
+    fn div(mut self, scalar: T) -> Self {
+        self /= scalar;
+        self
+    }
+}
+
+impl<const N: usize, T> DivAssign<T> for Vector<N, T>
+where
+    T: Div<Output = T> + Copy,
+{
+    fn div_assign(&mut self, scalar: T) {
+        for component in &mut self.components {
+            *component = *component / scalar;
+        }
     }
 }
