@@ -1,6 +1,6 @@
 use {
     crate::num_traits::{One, Scalar, Zero},
-    std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign},
+    std::ops::{Add, AddAssign, Div, DivAssign, Index, Mul, MulAssign, Neg, Sub, SubAssign},
 };
 
 pub mod aliases {
@@ -156,5 +156,12 @@ where
         for component in &mut self.components {
             *component = *component / scalar;
         }
+    }
+}
+
+impl<const N: usize, T> Index<usize> for Vector<N, T> {
+    type Output = T;
+    fn index(&self, index: usize) -> &Self::Output {
+        &self.components[index]
     }
 }
