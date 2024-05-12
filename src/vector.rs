@@ -74,8 +74,7 @@ where
     T: Add<Output = T> + Copy,
 {
     fn add_assign(&mut self, rhs: Self) {
-        let index = 0;
-        while index < self.components.len() {
+        for index in 0..self.components.len() {
             self.components[index] = self.components[index] + rhs.components[index];
         }
     }
@@ -97,8 +96,7 @@ where
     T: Sub<Output = T> + Copy,
 {
     fn sub_assign(&mut self, rhs: Self) {
-        let index = 0;
-        while index < self.components.len() {
+        for index in 0..self.components.len() {
             self.components[index] = self.components[index] - rhs.components[index];
         }
     }
